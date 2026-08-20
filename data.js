@@ -9,7 +9,7 @@
 // Les 5 championnats couverts (ne pas toucher, sauf si tu veux
 // en ajouter un nouveau plus tard)
 const LEAGUES = [
-  { id: "pl",     name: "Premier League", short: "PL",  color: "#37003C" },
+  { id: "pl",     name: "Premier League", short: "PL",  color: "#38003c" },
   { id: "liga",   name: "La Liga",        short: "ESP", color: "#EE8707" },
   { id: "seriea", name: "Serie A",        short: "ITA", color: "#0C56A5" },
   { id: "bundes", name: "Bundesliga",     short: "GER", color: "#D3010C" },
