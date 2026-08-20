@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Les Pronos du Week-end</title>
+
+  <!-- PWA : permet d'installer le site comme une icône sur le téléphone -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0B3D2E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== EN-TÊTE ===== -->
+  <header class="hero">
+    <p class="eyebrow" id="weekend-dates">Week-end</p>
+    <h1>Les Pronos du Week-end</h1>
+    <p class="subtitle" id="total-count"></p>
+  </header>
+
+  <!-- ===== SWITCH GRATUIT / PREMIUM ===== -->
+  <div class="tier-switch-wrap">
+    <div class="tier-switch">
+      <button class="tier-btn active" data-tier="free">🔥 Gratuit</button>
+      <button class="tier-btn" data-tier="premium">📈 Premium</button>
+    </div>
+  </div>
+  <p class="free-note" id="free-note"></p>
+
+  <!-- ===== FILTRES PAR CHAMPIONNAT ===== -->
+  <div class="league-chips" id="league-chips"></div>
+
+  <!-- ===== LISTE DES MATCHS (générée par script.js) ===== -->
+  <main class="match-list" id="match-list"></main>
+
+  <footer>
+    <p>Fait avec ❤️ — mets à jour tes pronostics dans data.js chaque week-end</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
