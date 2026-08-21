@@ -257,8 +257,14 @@ body {
   background: #3e5a4f;
 }
 
-.dot.on {
-  background: var(--gold);
+.star {
+  font-size: 13px;
+  color: #3e5a4f;
+  line-height: 1;
+}
+
+.star.on {
+  color: var(--gold);
 }
 
 .locked-banner {
