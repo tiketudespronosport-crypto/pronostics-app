@@ -16,11 +16,11 @@ function leagueById(id) {
 
 // Construit les points de confiance (●●●○○)
 function renderConfidence(level) {
-  let dots = "";
+  let stars = "";
   for (let i = 1; i <= 5; i++) {
-    dots += `<span class="dot ${i <= level ? "on" : ""}"></span>`;
+    stars += `<span class="star ${i <= level ? "on" : ""}">★</span>`;
   }
-  return `<div class="confidence">${dots}</div>`;
+  return `<div class="confidence">${stars}</div>`;
 }
 
 // Construit un pari (une ligne à l'intérieur d'un match)
