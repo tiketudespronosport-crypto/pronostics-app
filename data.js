@@ -11,7 +11,7 @@
 const LEAGUES = [
   { id: "pl",     name: "Premier League", short: "PL",  color: "#38003c" },
   { id: "liga",   name: "La Liga",        short: "ESP", color: "#FF4B44" },
-  { id: "seriea", name: "Serie A",        short: "ITA", color: "#0C56A5" },
+  { id: "seriea", name: "Serie A",        short: "ITA", color: "#0032A0" },
   { id: "bundes", name: "Bundesliga",     short: "GER", color: "#D3010C" },
   { id: "l1",     name: "Ligue 1",        short: "FRA", color: "#0A1E3C" },
 ];
