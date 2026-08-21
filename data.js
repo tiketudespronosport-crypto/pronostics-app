@@ -2,8 +2,7 @@
 // data.js — TES PRONOSTICS DE LA SEMAINE
 // ============================================================
 // C'est LE SEUL fichier que tu dois modifier chaque week-end.
-// Tu ajoutes / modifies les matchs et pronostics ici.
-// Pas besoin de toucher à index.html, style.css ou script.js.
+// Toutes les heures sont en heure Togo (GMT+0).
 // ============================================================
 
 const LEAGUES = [
@@ -22,7 +21,7 @@ const MATCHES = [
     away: "Leeds United",
     day: "Sam",
     date: "22 août",
-    time: "15:00",
+    time: "14:00",
     bets: [
       {
         type: "Double Chance",
@@ -30,7 +29,7 @@ const MATCHES = [
         cote: 1.65,
         conf: 3,
         tier: "premium",
-        note: "<strong>Leeds n'a perdu son ouverture que 2 fois en 18 saisons.</strong><br>• Forme forte : Calvert-Lewin (14 buts la saison passée), nouvelle recrue Harry Wilson impliquée sur 17 buts<br>• Signal négatif pour Forest : ses 6 derniers entraîneurs permanents ont tous perdu leur tout premier match, malgré leur solide historique à domicile contre Leeds",
+        note: "<strong>Attention : l'historique favorise nettement Forest.</strong> Invaincu en 14 matchs à domicile contre Leeds depuis 1971-72, vainqueur des 4 dernières confrontations à la maison.<br>• Argument pour Leeds : vainqueur du tout dernier duel entre les deux équipes (3-1)<br>• Forest a connu la 2e plus grosse chute de points de PL entre les deux dernières saisons (-21), signe de fragilité<br>• Nouveau coach Forest (Glasner) : incertitude, ses prédécesseurs ont tous perdu leurs débuts, mais lui-même réussit généralement ses débuts ailleurs — facteur difficile à trancher",
       },
     ],
   },
@@ -41,7 +40,7 @@ const MATCHES = [
     away: "Sevilla",
     day: "Sam",
     date: "22 août",
-    time: "17:00",
+    time: "15:00",
     bets: [
       {
         type: "Total Sevilla",
@@ -49,7 +48,83 @@ const MATCHES = [
         cote: 1.71,
         conf: 3,
         tier: "premium",
-        note: "<strong>Sevilla a bien démarré la saison</strong> (victoire 2-1), porté par un buteur en forme.<br>• Peque Fernández, décisif au dernier match, a déjà marqué à Bilbao en janvier 2026<br>• Athletic traverse une période fragile : aucune victoire en 4 matchs, Iñaki Williams muet depuis 8 matchs face à Sevilla<br>• Historiquement, les duels entre ces deux équipes sont souvent disputés — favorable aux buts des deux côtés",
+        note: "<strong>Pari plus risqué qu'il n'y paraît : Sevilla ne gagne qu'1 de ses 7 derniers déplacements en Liga</strong> (1N 5D), signe d'une attaque peu tranchante à l'extérieur.<br>• Argument concret en faveur du pari : Peque Fernández, décisif au dernier match, a déjà marqué précisément à Bilbao (janvier 2026)<br>• La méforme d'Athletic (Iñaki Williams muet, aucune victoire en 4 matchs) concerne surtout leur attaque, pas leur défense — donc n'est pas une garantie qu'ils encaissent<br>• Solidité défensive d'Athletic à domicile cette saison : donnée non disponible, incertitude à noter",
+      },
+    ],
+  },
+  {
+    id: 3,
+    league: "liga",
+    home: "Valencia",
+    away: "Celta de Vigo",
+    day: "Sam",
+    date: "22 août",
+    time: "17:30",
+    bets: [
+      {
+        type: "Total (Asiatique)",
+        pick: "Over 2 buts (remboursé si exactement 2)",
+        cote: 1.64,
+        conf: 2,
+        tier: "free",
+        note: "<strong>Au moins 3 buts lors de chacune des 6 dernières confrontations entre ces deux équipes.</strong><br>• Les deux équipes ont marqué lors de leurs 6 derniers duels<br>• Aspas (Celta) est impliqué sur 8 buts en 10 matchs à Mestalla contre Valence<br>• Valencia est invaincu sur ses 4 derniers matchs et sur une bonne dynamique offensive sous Corberán",
+      },
+    ],
+  },
+  {
+    id: 4,
+    league: "seriea",
+    home: "Udinese",
+    away: "Como",
+    day: "Sam",
+    date: "22 août",
+    time: "16:30",
+    bets: [
+      {
+        type: "Total Individuel (Asiatique)",
+        pick: "Udinese Under 1 (remboursé si Udinese marque exactement 1)",
+        cote: 1.45,
+        conf: 4,
+        tier: "free",
+        note: "<strong>Como a gardé sa cage inviolée lors des 2 derniers duels face à Udinese</strong> (victoire 1-0, puis 0-0) et vise un 3e clean-sheet consécutif.<br>• Como = meilleure défense d'Europe avec Arsenal la saison passée (19 clean-sheets, seulement 29 buts encaissés)<br>• Zaniolo, attaquant principal d'Udinese, n'a plus marqué depuis 15 matchs<br>• Moins de 3 buts au total lors de chacun des 6 derniers matchs d'Udinese à domicile",
+      },
+    ],
+  },
+  {
+    id: 5,
+    league: "seriea",
+    home: "Genoa",
+    away: "Napoli",
+    day: "Sam",
+    date: "22 août",
+    time: "18:45",
+    bets: [
+      {
+        type: "1N2",
+        pick: "Victoire Napoli",
+        cote: 1.94,
+        conf: 3,
+        tier: "free",
+        note: "<strong>Napoli est invaincu sur 25 de ses 26 derniers duels contre Genoa</strong> (17V 8N), sans défaite à Gênes depuis février 2021.<br>• Napoli a gagné 8 de ses 9 dernières entrées en championnat, marquant 23 buts au passage<br>• Højlund, leur attaquant, a déjà marqué 3 buts contre Genoa (son adversaire favori) et enchaîne 2 matchs de suite avec un but<br>• Nuance : les deux équipes ont marqué lors de leurs 6 derniers duels, donc Genoa peut inscrire un but sans empêcher la victoire de Napoli",
+      },
+    ],
+  },
+  {
+    id: 6,
+    league: "l1",
+    home: "Lens",
+    away: "Auxerre",
+    day: "Sam",
+    date: "22 août",
+    time: "15:15",
+    bets: [
+      {
+        type: "Total (Asiatique)",
+        pick: "Under 3 buts (remboursé si exactement 3)",
+        cote: 1.72,
+        conf: 4,
+        tier: "premium",
+        note: "<strong>Lens n'a pas encaissé lors de 4 de ses 6 derniers matchs à domicile contre Auxerre</strong>, un duel où leur défense est historiquement solide.<br>• Lens a gagné 13 de ses 20 derniers matchs à domicile face à Auxerre au 21e siècle<br>• Point de vigilance : le nouveau coach de Lens (Toppmöller) vient de Francfort, une équipe portée sur les buts des deux côtés — un style plus offensif pourrait ouvrir le match<br>• Match d'ouverture de saison, souvent plus prudent tactiquement qu'un match en cours de saison rodé",
       },
     ],
   },
