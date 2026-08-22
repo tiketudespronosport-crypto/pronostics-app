@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Les Pronos du Week-end</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0a2820" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== VUE : ACCUEIL ===== -->
+  <div id="view-home" class="view">
+    <header class="hero">
+      <p class="eyebrow" id="match-counter">1 / 8 · Week-end</p>
+      <h1>Les Pronos du Week-end</h1>
+    </header>
+
+    <div class="card-wrap">
+      <div class="ticket" id="match-card"></div>
+
+      <div class="card-nav">
+        <button id="btn-prev" class="nav-btn">‹ Précédent</button>
+        <button id="btn-next" class="nav-btn">Suivant ›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VUE : HISTORIQUE ===== -->
+  <div id="view-history" class="view" style="display:none;">
+    <header class="hero">
+      <p class="eyebrow">Résultats</p>
+      <h1>Historique</h1>
+      <p class="subtitle" id="history-summary"></p>
+    </header>
+    <div class="history-list" id="history-list"></div>
+  </div>
+
+  <!-- ===== VUE : PREMIUM ===== -->
+  <div id="view-premium" class="view" style="display:none;">
+    <header class="hero">
+      <p class="eyebrow">Abonnement</p>
+      <h1>Premium</h1>
+      <p class="subtitle">Tous les pronostics, chaque week-end</p>
+    </header>
+    <div class="premium-banner">
+      <p>💎 Abonnement bientôt disponible</p>
+      <p class="premium-sub">En attendant, voici un aperçu de ce que tu débloques :</p>
+    </div>
+    <div class="match-list" id="premium-list"></div>
+  </div>
+
+  <!-- ===== NAVIGATION EN BAS ===== -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-view="home">
+      <span class="nav-icon">🏠</span><span>Accueil</span>
+    </button>
+    <button class="nav-item" data-view="history">
+      <span class="nav-icon">📊</span><span>Historique</span>
+    </button>
+    <button class="nav-item" data-view="premium">
+      <span class="nav-icon">👑</span><span>Premium</span>
+    </button>
+  </nav>
+
+  <script src="data.js"></script>
+  <script src="results.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
