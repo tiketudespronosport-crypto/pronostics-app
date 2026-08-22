@@ -1,9 +1,0 @@
-{
-  "name": "Les Pronos du Week-end",
-  "short_name": "Pronos",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#0b3d2e",
-  "theme_color": "#0b3d2e",
-  "icons": []
-}
