@@ -12,9 +12,85 @@ function leagueById(id) {
   return LEAGUES.find((l) => l.id === id);
 }
 
-// -------------------- Vue Accueil : carte par carte --------------------
+// -------------------- Vue Accueil : liste groupée par ligue --------------------
 
-function renderMatchCard() {
+function renderHomeList() {
+  document.getElementById("match-total").textContent = MATCHES.length;
+
+  const container = document.getElementById("home-list");
+
+  const groupsHtml = LEAGUES.map((league) => {
+    const matches = MATCHES.filter((m) => m.league === league.id);
+    if (matches.length === 0) return "";
+
+    const rowsHtml = matches
+      .map((m) => {
+        const locked = m.tier === "premium";
+        return `
+          <button class="match-row ${locked ? "locked" : ""}" data-match-id="${m.id}">
+            <div class="match-row-info">
+              <span class="match-row-time">${m.day} ${m.time}</span>
+              <span class="match-row-teams">${m.home} - ${m.away}</span>
+            </div>
+            <span class="tier-badge ${locked ? "premium" : "free"}">
+              ${locked ? "🔒 Premium" : "Gratuit"}
+            </span>
+          </button>
+        `;
+      })
+      .join("");
+
+    return `
+      <div class="league-group">
+        <div class="league-header" style="border-color:${league.color}">${league.name}</div>
+        <div class="league-matches">${rowsHtml}</div>
+      </div>
+    `;
+  }).join("");
+
+  container.innerHTML = groupsHtml;
+
+  container.querySelectorAll(".match-row").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = Number(btn.dataset.matchId);
+      const match = MATCHES.find((m) => m.id === id);
+      if (match.tier === "premium") {
+        showToast("🔒 Ce pronostic est réservé aux abonnés Premium — débloque-le avec l'abonnement.");
+      } else {
+        openDetail(id);
+      }
+    });
+  });
+}
+
+function showToast(message) {
+  document.getElementById("toast-message").textContent = message;
+  document.getElementById("toast").classList.add("show");
+  document.getElementById("toast-backdrop").classList.add("show");
+}
+
+function hideToast() {
+  document.getElementById("toast").classList.remove("show");
+  document.getElementById("toast-backdrop").classList.remove("show");
+}
+
+document.getElementById("toast-close").addEventListener("click", hideToast);
+document.getElementById("toast-backdrop").addEventListener("click", hideToast);
+
+document.getElementById("toast-subscribe").addEventListener("click", () => {
+  hideToast();
+  showView("premium");
+});
+
+// -------------------- Vue Détail : carte plein écran d'un pronostic --------------------
+
+function openDetail(matchId) {
+  currentIndex = MATCHES.findIndex((m) => m.id === matchId);
+  renderDetailCard();
+  showView("detail");
+}
+
+function renderDetailCard() {
   const match = MATCHES[currentIndex];
   const league = leagueById(match.league);
   const container = document.getElementById("match-card");
@@ -50,26 +126,11 @@ function renderMatchCard() {
       <div class="stars">${starsHtml}</div>
     </div>
     <div class="args-row">${argsHtml}</div>
-    ${match.tier === "premium" ? '<div class="premium-lock">🔒 Pronostic Premium</div>' : ""}
   `;
-
-  document.getElementById("match-counter").textContent = `${currentIndex + 1} / ${MATCHES.length} · Week-end`;
-  document.getElementById("btn-prev").disabled = currentIndex === 0;
-  document.getElementById("btn-next").disabled = currentIndex === MATCHES.length - 1;
 }
 
-document.getElementById("btn-prev").addEventListener("click", () => {
-  if (currentIndex > 0) {
-    currentIndex--;
-    renderMatchCard();
-  }
-});
-
-document.getElementById("btn-next").addEventListener("click", () => {
-  if (currentIndex < MATCHES.length - 1) {
-    currentIndex++;
-    renderMatchCard();
-  }
+document.getElementById("btn-back").addEventListener("click", () => {
+  showView("home");
 });
 
 // -------------------- Vue Historique --------------------
@@ -132,13 +193,15 @@ function renderPremium() {
 
 // -------------------- Navigation entre vues --------------------
 
-function switchView(view) {
+function showView(view) {
   currentView = view;
   document.querySelectorAll(".view").forEach((v) => (v.style.display = "none"));
   document.getElementById(`view-${view}`).style.display = "flex";
 
+  // "detail" est une sous-vue d'Accueil : le bouton du bas reste sur "Accueil"
+  const navKey = view === "detail" ? "home" : view;
   document.querySelectorAll(".nav-item").forEach((btn) => {
-    btn.classList.toggle("active", btn.dataset.view === view);
+    btn.classList.toggle("active", btn.dataset.view === navKey);
   });
 
   if (view === "history") renderHistory();
@@ -146,9 +209,9 @@ function switchView(view) {
 }
 
 document.querySelectorAll(".nav-item").forEach((btn) => {
-  btn.addEventListener("click", () => switchView(btn.dataset.view));
+  btn.addEventListener("click", () => showView(btn.dataset.view));
 });
 
 // -------------------- Démarrage --------------------
 
-renderMatchCard();
+renderHomeList();
