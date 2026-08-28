@@ -46,7 +46,7 @@ const MATCHES = [
     pick: "Victoire Milan",
     cote: 1.51,
     conf: 3.5,
-    tier: "free",
+    tier: "premium",
     result: null,
     args: [
       { icon: "history", label: "Domination historique totale", text: "Milan a gagné ses 5 derniers duels contre Venezia sans encaisser lors des 4 derniers. Invaincu sur ses 10 derniers matchs à domicile contre eux (8V 2N). Venezia a perdu 18 de leurs confrontations, leur pire bilan contre un adversaire." },
@@ -66,7 +66,7 @@ const MATCHES = [
     pick: "Haaland marque",
     cote: 1.71,
     conf: 3,
-    tier: "free",
+    tier: "premium",
     result: null,
     args: [
       { icon: "player", label: "Statistique extrême", text: "Haaland a marqué lors de ses 5 confrontations en PL contre Palace (8 buts) — 100% de réussite, la meilleure série de l'histoire du championnat contre un adversaire." },
@@ -86,7 +86,7 @@ const MATCHES = [
     pick: "Double Chance PSG + PSG Under 2.5 buts",
     cote: 1.75,
     conf: 3,
-    tier: "free",
+    tier: "premium",
     result: null,
     args: [
       { icon: "history", label: "Domination historique du PSG", text: "PSG invaincu sur ses 10 derniers duels contre Lille, 33 buts marqués contre 11 encaissés sur cette période. Une victoire de Lille serait leur première contre le PSG depuis avril 2021." },
