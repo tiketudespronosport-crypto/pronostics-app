@@ -133,8 +133,17 @@ body {
 
 .stars { display: flex; justify-content: center; gap: 3px; margin-top: 10px; }
 
-.star { font-size: 14px; color: #3e5a4f; }
+.star { font-size: 14px; color: #3e5a4f; position: relative; display: inline-block; }
 .star.on { color: var(--gold); }
+.star.half { color: #3e5a4f; }
+.star.half::before {
+  content: "★";
+  position: absolute;
+  left: 0; top: 0;
+  width: 50%;
+  overflow: hidden;
+  color: var(--gold);
+}
 
 .args-row {
   display: flex;

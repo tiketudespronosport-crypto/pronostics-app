@@ -108,7 +108,11 @@ function renderDetailCard() {
     .join("");
 
   const starsHtml = [1, 2, 3, 4, 5]
-    .map((i) => `<span class="star ${i <= match.conf ? "on" : ""}">★</span>`)
+    .map((i) => {
+      if (i <= match.conf) return `<span class="star on">★</span>`;
+      if (i - 0.5 === match.conf) return `<span class="star half">★</span>`;
+      return `<span class="star">★</span>`;
+    })
     .join("");
 
   container.innerHTML = `

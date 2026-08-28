@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" rx="40" fill="#0a2820"/>
+  <circle cx="100" cy="90" r="55" fill="none" stroke="#e3b23c" stroke-width="6"/>
+  <path d="M100 45 L118 78 L155 82 L128 106 L136 143 L100 123 L64 143 L72 106 L45 82 L82 78 Z" fill="#d4ff3f"/>
+  <text x="100" y="175" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#f3f1e7" text-anchor="middle">PRONOS</text>
+</svg>
