@@ -18,20 +18,33 @@
 </head>
 <body>
 
-  <!-- ===== VUE : ACCUEIL ===== -->
+  <!-- ===== VUE : ACCUEIL (liste groupée par ligue) ===== -->
   <div id="view-home" class="view">
     <header class="hero">
-      <p class="eyebrow" id="match-counter">1 / 8 · Week-end</p>
+      <p class="eyebrow"><span id="match-total"></span> matchs · Week-end</p>
       <h1>Les Pronos du Week-end</h1>
     </header>
 
+    <div class="home-list" id="home-list"></div>
+  </div>
+
+  <!-- ===== VUE : DÉTAIL D'UN PRONOSTIC (accessible depuis Accueil) ===== -->
+  <div id="view-detail" class="view" style="display:none;">
+    <div class="detail-topbar">
+      <button id="btn-back" class="back-btn">‹ Retour</button>
+    </div>
     <div class="card-wrap">
       <div class="ticket" id="match-card"></div>
+    </div>
+  </div>
 
-      <div class="card-nav">
-        <button id="btn-prev" class="nav-btn">‹ Précédent</button>
-        <button id="btn-next" class="nav-btn">Suivant ›</button>
-      </div>
+  <!-- ===== POPUP (pronostic premium verrouillé) ===== -->
+  <div id="toast-backdrop" class="toast-backdrop"></div>
+  <div id="toast" class="toast">
+    <p id="toast-message" class="toast-message"></p>
+    <div class="toast-actions">
+      <button id="toast-close" class="toast-btn ghost">Fermer</button>
+      <button id="toast-subscribe" class="toast-btn primary">💎 S'abonner</button>
     </div>
   </div>
 
