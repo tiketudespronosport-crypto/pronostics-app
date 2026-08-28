@@ -25,7 +25,8 @@ function renderHomeList() {
 
     const rowsHtml = matches
       .map((m) => {
-        const locked = m.tier === "premium";
+        const locked = m.tier === "premium" && !isPremiumUnlocked();
+        const wasPremium = m.tier === "premium";
         return `
           <button class="match-row ${locked ? "locked" : ""}" data-match-id="${m.id}">
             <div class="match-row-info">
@@ -33,7 +34,7 @@ function renderHomeList() {
               <span class="match-row-teams">${m.home} - ${m.away}</span>
             </div>
             <span class="tier-badge ${locked ? "premium" : "free"}">
-              ${locked ? "🔒 Premium" : "Gratuit"}
+              ${locked ? "🔒 Premium" : wasPremium ? "🔓 Débloqué" : "Gratuit"}
             </span>
           </button>
         `;
@@ -54,14 +55,39 @@ function renderHomeList() {
     btn.addEventListener("click", () => {
       const id = Number(btn.dataset.matchId);
       const match = MATCHES.find((m) => m.id === id);
-      if (match.tier === "premium") {
-        showToast("🔒 Ce pronostic est réservé aux abonnés Premium — débloque-le avec l'abonnement.");
+      if (match.tier === "premium" && !isPremiumUnlocked()) {
+        pendingMatchId = id;
+        showToast("🔒 Ce pronostic est réservé aux abonnés Premium. Entre ton code d'accès si tu es déjà abonné, ou clique sur \"S'abonner\".");
       } else {
         openDetail(id);
       }
     });
   });
 }
+
+// -------------------- Déverrouillage par code d'accès --------------------
+
+let pendingMatchId = null;
+
+function isPremiumUnlocked() {
+  return localStorage.getItem("premium_unlocked_code") === WEEKLY_ACCESS_CODE;
+}
+
+document.getElementById("toast-unlock").addEventListener("click", () => {
+  const input = document.getElementById("code-input");
+  const errorEl = document.getElementById("code-error");
+  const entered = input.value.trim();
+
+  if (entered === WEEKLY_ACCESS_CODE) {
+    localStorage.setItem("premium_unlocked_code", entered);
+    errorEl.textContent = "";
+    hideToast();
+    if (pendingMatchId !== null) openDetail(pendingMatchId);
+    renderHomeList(); // rafraîchit les badges premium -> déverrouillé
+  } else {
+    errorEl.textContent = "Code incorrect.";
+  }
+});
 
 function showToast(message) {
   document.getElementById("toast-message").textContent = message;
@@ -72,6 +98,8 @@ function showToast(message) {
 function hideToast() {
   document.getElementById("toast").classList.remove("show");
   document.getElementById("toast-backdrop").classList.remove("show");
+  document.getElementById("code-input").value = "";
+  document.getElementById("code-error").textContent = "";
 }
 
 document.getElementById("toast-close").addEventListener("click", hideToast);

@@ -50,7 +50,12 @@
   <div id="toast-backdrop" class="toast-backdrop"></div>
   <div id="toast" class="toast">
     <p id="toast-message" class="toast-message"></p>
+    <input type="text" id="code-input" class="code-input" placeholder="Code d'accès (si déjà abonné)" />
+    <p id="code-error" class="code-error"></p>
     <div class="toast-actions">
+      <button id="toast-unlock" class="toast-btn primary">Débloquer</button>
+    </div>
+    <div class="toast-actions" style="margin-top:8px;">
       <button id="toast-close" class="toast-btn ghost">Fermer</button>
       <button id="toast-subscribe" class="toast-btn primary">💎 S'abonner</button>
     </div>
@@ -95,6 +100,7 @@
 
   <script src="data.js"></script>
   <script src="results.js"></script>
+  <script src="access.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
