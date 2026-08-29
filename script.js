@@ -189,6 +189,18 @@ function renderHistory() {
       ? `<span class="result-tag ${result}">${result === "won" ? "Gagné" : result === "lost" ? "Perdu" : "Remboursé"}</span>`
       : `<span class="result-tag pending">En cours</span>`;
 
+    const proof = typeof PROOF !== "undefined" ? PROOF[match.id] : null;
+    const proofHtml = proof
+      ? `
+        <div class="proof-ticket">
+          <div class="proof-row"><span>Cote</span><span>${proof.cote.toFixed(2)}</span></div>
+          <div class="proof-row"><span>Mise</span><span>${proof.mise} F</span></div>
+          <div class="proof-row highlight"><span>Gains</span><span>${proof.gains.toFixed(1)} F</span></div>
+          <div class="proof-note">✅ Mise réellement placée sur WinnersRevolution</div>
+        </div>
+      `
+      : "";
+
     return `
       <div class="history-row">
         <div class="history-info">
@@ -197,6 +209,7 @@ function renderHistory() {
         </div>
         ${tag}
       </div>
+      ${proofHtml}
     `;
   }).join("");
 
