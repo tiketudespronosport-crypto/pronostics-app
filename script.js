@@ -12,6 +12,19 @@ function leagueById(id) {
   return LEAGUES.find((l) => l.id === id);
 }
 
+function teamInitials(name) {
+  const words = name.split(" ").filter(Boolean);
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+  return (words[0][0] + words[1][0]).toUpperCase();
+}
+
+function teamBadgeHtml(name, logoPath, color) {
+  if (logoPath) {
+    return `<img class="team-badge" src="${logoPath}" alt="${name}" />`;
+  }
+  return `<span class="team-badge team-badge-initials" style="background:${color}1a; color:${color};">${teamInitials(name)}</span>`;
+}
+
 // -------------------- Vue Accueil : liste groupée par ligue --------------------
 
 function renderHomeList() {
@@ -192,12 +205,16 @@ function renderHistory() {
       : `<span class="result-tag pending">En cours</span>`;
 
     const proof = typeof PROOF !== "undefined" ? PROOF[match.id] : null;
+    const league = leagueById(match.league);
     const proofHtml = proof
       ? `
         <div class="proof-ticket">
           <div class="proof-match">
-            <span class="proof-teams">${match.home} - ${match.away}</span>
-            ${proof.score ? `<span class="proof-score">${proof.score}</span>` : ""}
+            <span class="proof-team-name">${match.home}</span>
+            ${teamBadgeHtml(match.home, match.homeLogo, league.color)}
+            ${proof.score ? `<span class="proof-score">${proof.score.replace("-", " : ")}</span>` : ""}
+            ${teamBadgeHtml(match.away, match.awayLogo, league.color)}
+            <span class="proof-team-name">${match.away}</span>
           </div>
           <div class="proof-row highlight"><span>Type de pari</span><span>${match.type} : ${match.pick}</span></div>
           <div class="proof-row"><span>Cote</span><span>${proof.cote.toFixed(2)}</span></div>
