@@ -416,6 +416,32 @@ body {
   font-family: "Oswald", sans-serif;
 }
 
+.proof-match {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+  border-bottom: 1px dashed rgba(139, 176, 255, 0.3);
+  text-align: center;
+}
+
+.proof-teams {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.proof-score {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--blue);
+  background: rgba(139, 176, 255, 0.12);
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
 .proof-row {
   display: flex;
   justify-content: space-between;
