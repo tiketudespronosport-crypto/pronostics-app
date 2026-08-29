@@ -18,10 +18,10 @@ const CURRENT_RESULTS = {
 // Preuve de mise réelle pour chaque pronostic (facultatif — si absent,
 // pas de reçu affiché pour ce match)
 const PROOF = {
-  1: { cote: 1.54, mise: 90, gains: 138.6 },
-  2: { cote: 1.76, mise: 90, gains: 158.4 },
-  3: { cote: 1.71, mise: 90, gains: 153.9 },
-  4: { cote: 1.8,  mise: 90, gains: 162 },
+  1: { cote: 1.54, mise: 90, gains: 138.6, score: "3-2" },
+  2: { cote: 1.76, mise: 90, gains: 158.4, score: "2-0" },
+  3: { cote: 1.71, mise: 90, gains: 153.9, score: "1-4" },
+  4: { cote: 1.8,  mise: 90, gains: 162,   score: "2-2" },
 };
 
 // Archive complète de la saison — TOI seul y as accès
