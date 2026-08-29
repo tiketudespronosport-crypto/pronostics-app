@@ -128,8 +128,10 @@ function renderDetailCard() {
       (a) => `
       <div class="arg-card">
         <div class="arg-icon">${ICONS[a.icon] || "⭐"}</div>
-        <div class="arg-label">${a.label}</div>
-        <div class="arg-text">${a.text}</div>
+        <div class="arg-body">
+          <div class="arg-label">${a.label}</div>
+          <div class="arg-text">${a.text}</div>
+        </div>
       </div>
     `
     )
