@@ -193,6 +193,11 @@ function renderHistory() {
     const proofHtml = proof
       ? `
         <div class="proof-ticket">
+          <div class="proof-match">
+            <span class="proof-teams">${match.home} - ${match.away}</span>
+            ${proof.score ? `<span class="proof-score">${proof.score}</span>` : ""}
+          </div>
+          <div class="proof-row"><span>Type de pari</span><span>${match.type} : ${match.pick}</span></div>
           <div class="proof-row"><span>Cote</span><span>${proof.cote.toFixed(2)}</span></div>
           <div class="proof-row"><span>Mise</span><span>${proof.mise} F</span></div>
           <div class="proof-row highlight"><span>Gains</span><span>${proof.gains.toFixed(1)} F</span></div>
