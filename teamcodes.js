@@ -1,0 +1,118 @@
+// ============================================================
+// teamcodes.js — CODES OFFICIELS DES CLUBS (source : Reuters)
+// ============================================================
+// Utilisé pour afficher le vrai code à 3 lettres d'un club
+// (ex: "Manchester City" -> "MCI") au lieu d'un calcul au hasard.
+// Si un club n'est pas dans cette liste, script.js retombe
+// automatiquement sur les 3 premières lettres du nom.
+// ============================================================
+
+const TEAM_CODES = [
+  // Premier League anglaise
+  { code: "BOU", name: "AFC Bournemouth" },
+  { code: "ARS", name: "Arsenal" },
+  { code: "AVL", name: "Aston Villa" },
+  { code: "BRE", name: "Brentford" },
+  { code: "BHA", name: "Brighton & Hove Albion" },
+  { code: "CHE", name: "Chelsea" },
+  { code: "COV", name: "Coventry City" },
+  { code: "CRY", name: "Crystal Palace" },
+  { code: "EVE", name: "Everton" },
+  { code: "FUL", name: "Fulham" },
+  { code: "HUL", name: "Hull City" },
+  { code: "IPS", name: "Ipswich Town" },
+  { code: "LEE", name: "Leeds United" },
+  { code: "LIV", name: "Liverpool" },
+  { code: "MCI", name: "Manchester City" },
+  { code: "MUN", name: "Manchester United" },
+  { code: "NEW", name: "Newcastle United" },
+  { code: "NFO", name: "Nottingham Forest" },
+  { code: "SUN", name: "Sunderland" },
+  { code: "TOT", name: "Tottenham Hotspur" },
+
+  // Liga espagnole
+  { code: "ALA", name: "Alaves" },
+  { code: "ATH", name: "Athletic Bilbao" },
+  { code: "ATM", name: "Atletico Madrid" },
+  { code: "BAR", name: "Barcelona" },
+  { code: "CEL", name: "Celta de Vigo" },
+  { code: "DEP", name: "Deportivo La Coruna" },
+  { code: "ELC", name: "Elche" },
+  { code: "ESP", name: "Espanyol" },
+  { code: "GET", name: "Getafe" },
+  { code: "LEV", name: "Levante" },
+  { code: "MAL", name: "Malaga" },
+  { code: "OSA", name: "Osasuna" },
+  { code: "RAC", name: "Racing de Santander" },
+  { code: "RAY", name: "Rayo Vallecano" },
+  { code: "BET", name: "Real Betis" },
+  { code: "RMA", name: "Real Madrid" },
+  { code: "RSO", name: "Real Sociedad" },
+  { code: "SEV", name: "Sevilla" },
+  { code: "VAL", name: "Valencia" },
+  { code: "VIL", name: "Villarreal" },
+
+  // Serie A italienne
+  { code: "MIL", name: "AC Milan" },
+  { code: "MON", name: "AC Monza" },
+  { code: "ROM", name: "AS Roma" },
+  { code: "ATA", name: "Atalanta" },
+  { code: "BOL", name: "Bologna" },
+  { code: "CAG", name: "Cagliari" },
+  { code: "COM", name: "Como" },
+  { code: "FIO", name: "Fiorentina" },
+  { code: "FRO", name: "Frosinone Calcio" },
+  { code: "GEN", name: "Genoa" },
+  { code: "INT", name: "Inter Milan" },
+  { code: "JUV", name: "Juventus" },
+  { code: "LAZ", name: "Lazio" },
+  { code: "LEC", name: "Lecce" },
+  { code: "NAP", name: "Napoli" },
+  { code: "PAR", name: "Parma" },
+  { code: "SAS", name: "Sassuolo" },
+  { code: "TOR", name: "Torino" },
+  { code: "UDI", name: "Udinese" },
+  { code: "VEN", name: "Venezia" },
+
+  // Bundesliga allemande
+  { code: "LEV", name: "Bayer Leverkusen" },
+  { code: "FCB", name: "Bayern Munich" },
+  { code: "BVB", name: "Borussia Dortmund" },
+  { code: "BMG", name: "Borussia Moenchengladbach" },
+  { code: "SGE", name: "Eintracht Frankfurt" },
+  { code: "ELV", name: "Elversberg" },
+  { code: "FCA", name: "FC Augsburg" },
+  { code: "KOE", name: "FC Cologne" },
+  { code: "SCF", name: "Freiburg" },
+  { code: "HSV", name: "Hamburg SV" },
+  { code: "TSG", name: "Hoffenheim" },
+  { code: "M05", name: "Mainz 05" },
+  { code: "RBL", name: "RB Leipzig" },
+  { code: "PAD", name: "SC Paderborn" },
+  { code: "S04", name: "Schalke 04" },
+  { code: "FCU", name: "Union Berlin" },
+  { code: "VFB", name: "VfB Stuttgart" },
+  { code: "SVW", name: "Werder Bremen" },
+
+  // Ligue 1 française
+  { code: "SCO", name: "Angers SCO" },
+  { code: "AJA", name: "Auxerre" },
+  { code: "BRE", name: "Brest" },
+  { code: "HAC", name: "Le Havre" },
+  { code: "LEM", name: "Le Mans" },
+  { code: "LIL", name: "Lille" },
+  { code: "FCL", name: "Lorient" },
+  { code: "ASM", name: "Monaco" },
+  { code: "NIC", name: "Nice" },
+  { code: "OL",  name: "Olympique Lyon" },
+  { code: "OM",  name: "Olympique Marseille" },
+  { code: "PAR", name: "Paris FC" },
+  { code: "PSG", name: "Paris Saint-Germain" },
+  { code: "RCL", name: "RC Lens" },
+  { code: "REN", name: "Rennes" },
+  { code: "STR", name: "Strasbourg" },
+  { code: "TFC", name: "Toulouse" },
+  { code: "TRO", name: "Troyes" },
+];
+
+if (typeof module !== "undefined") module.exports = { TEAM_CODES };

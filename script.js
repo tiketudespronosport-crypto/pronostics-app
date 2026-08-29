@@ -12,10 +12,42 @@ function leagueById(id) {
   return LEAGUES.find((l) => l.id === id);
 }
 
+const CODE_STOPWORDS = new Set(["de", "del", "fc", "cf", "sc", "afc", "ac", "calcio"]);
+
+function normWords(name) {
+  return name
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, "")
+    .split(/\s+/)
+    .filter((w) => w && !CODE_STOPWORDS.has(w));
+}
+
+function findTeamCode(name) {
+  if (typeof TEAM_CODES === "undefined") return null;
+  const words = normWords(name);
+  const key = words.join(" ");
+
+  const exact = TEAM_CODES.find((t) => normWords(t.name).join(" ") === key);
+  if (exact) return exact.code;
+
+  const wordSet = new Set(words);
+  const partial = TEAM_CODES.find((t) => {
+    const entrySet = new Set(normWords(t.name));
+    const [smaller, larger] = entrySet.size <= wordSet.size ? [entrySet, wordSet] : [wordSet, entrySet];
+    if (smaller.size === 0) return false;
+    for (const w of smaller) if (!larger.has(w)) return false;
+    return true;
+  });
+  return partial ? partial.code : null;
+}
+
 function teamInitials(name) {
+  const code = findTeamCode(name);
+  if (code) return code;
   const words = name.split(" ").filter(Boolean);
-  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
-  return (words[0][0] + words[1][0]).toUpperCase();
+  if (words.length === 1) return words[0].slice(0, 3).toUpperCase();
+  return (words[0].slice(0, 1) + words[1].slice(0, 2)).toUpperCase();
 }
 
 function teamBadgeHtml(name, logoPath, color) {
