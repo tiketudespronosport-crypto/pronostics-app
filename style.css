@@ -455,9 +455,10 @@ body {
 .proof-note {
   text-align: center;
   font-size: 10px;
-  color: var(--win);
+  font-weight: 600;
+  color: var(--text);
   margin-top: 6px;
-  font-family: "Inter", sans-serif;
+  font-family: "Oswald", sans-serif;
 }
 
 /* ---------- Premium ---------- */
