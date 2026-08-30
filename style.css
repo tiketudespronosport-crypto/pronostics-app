@@ -154,37 +154,30 @@ body {
 
 .args-row {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   padding: 0 14px 18px;
+  overflow-x: auto;
 }
 
 .arg-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  width: 100%;
+  flex: 0 0 auto;
+  width: 150px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 12px 14px;
+  padding: 12px 12px 14px;
 }
 
 .arg-icon {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 8px;
   background: var(--surface-2);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
-  flex-shrink: 0;
-}
-
-.arg-body {
-  flex: 1;
-  min-width: 0;
+  margin-bottom: 8px;
+  font-size: 14px;
 }
 
 .arg-label {
@@ -379,6 +372,16 @@ body {
   gap: 10px;
 }
 
+.history-card {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .history-row {
   background: var(--surface);
   border-radius: 14px;
@@ -392,6 +395,96 @@ body {
 .history-info { font-size: 13px; }
 .history-teams { font-family: "Oswald", sans-serif; font-weight: 600; color: var(--text); }
 .history-pick { color: var(--text-secondary); font-size: 12px; margin-top: 2px; }
+
+.history-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history-league {
+  font-family: "Oswald", sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.final-score {
+  text-align: center;
+  font-family: "Oswald", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  padding: 4px 0;
+}
+
+.final-score.muted { color: var(--muted); font-weight: 500; }
+
+.score-value {
+  display: inline-block;
+  background: var(--blue);
+  color: #fff;
+  padding: 2px 12px;
+  border-radius: 8px;
+  margin: 0 8px;
+  font-size: 15px;
+}
+
+.history-pick-line {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Badge d'équipe (initiales colorées ou logo) dans le reçu */
+.team-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.team-badge-initials {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Oswald", sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.proof-match {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 0 10px;
+  flex-wrap: wrap;
+}
+
+.proof-team-name {
+  font-family: "Oswald", sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.proof-score {
+  font-family: "Oswald", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--blue);
+  background: var(--surface-2);
+  padding: 2px 10px;
+  border-radius: 8px;
+}
 
 .result-tag {
   font-family: "Oswald", sans-serif;
@@ -419,52 +512,7 @@ body {
   border: 1px dashed var(--blue);
   border-radius: 10px;
   padding: 10px 14px;
-  margin: -4px 0 4px;
   font-family: "Oswald", sans-serif;
-}
-
-.proof-match {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  padding-bottom: 10px;
-  margin-bottom: 6px;
-  border-bottom: 1px dashed rgba(139, 176, 255, 0.3);
-  text-align: center;
-}
-
-.proof-team-name {
-  font-size: 11.5px;
-  font-weight: 600;
-  color: var(--text);
-  flex: 1;
-  min-width: 0;
-}
-
-.team-badge {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  object-fit: contain;
-}
-
-.team-badge-initials {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
-}
-
-.proof-score {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--blue);
-  flex-shrink: 0;
-  padding: 0 2px;
 }
 
 .proof-row {
@@ -480,10 +528,9 @@ body {
 .proof-note {
   text-align: center;
   font-size: 10px;
-  font-weight: 600;
-  color: var(--text);
+  color: var(--win);
   margin-top: 6px;
-  font-family: "Oswald", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 /* ---------- Premium ---------- */
