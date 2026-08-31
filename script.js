@@ -295,9 +295,8 @@ document.getElementById("btn-back").addEventListener("click", () => {
 
 function renderHistory() {
   const container = document.getElementById("history-list");
-  const entries = Object.keys(CURRENT_RESULTS);
 
-  if (entries.length === 0) {
+  if (typeof HISTORY === "undefined" || HISTORY.length === 0) {
     container.innerHTML = `<div class="empty-state">Les résultats de ce week-end seront affichés ici une fois les matchs terminés.</div>`;
     document.getElementById("history-summary").textContent = "";
     return;
@@ -305,42 +304,36 @@ function renderHistory() {
 
   let won = 0, lost = 0, void_ = 0;
 
-  const rows = MATCHES.map((match) => {
-    const result = CURRENT_RESULTS[match.id];
-    if (result === "won") won++;
-    else if (result === "lost") lost++;
-    else if (result === "void") void_++;
+  const rows = HISTORY.map((h) => {
+    if (h.result === "won") won++;
+    else if (h.result === "lost") lost++;
+    else if (h.result === "void") void_++;
 
-    const tag = result
-      ? `<span class="result-tag ${result}">${result === "won" ? "Gagné" : result === "lost" ? "Perdu" : "Remboursé"}</span>`
-      : `<span class="result-tag pending">En cours</span>`;
+    const tag = `<span class="result-tag ${h.result}">${h.result === "won" ? "Gagné" : h.result === "lost" ? "Perdu" : "Remboursé"}</span>`;
 
-    const proof = typeof PROOF !== "undefined" ? PROOF[match.id] : null;
-    const league = leagueById(match.league);
-    const proofHtml = proof
-      ? `
-        <div class="proof-ticket">
-          <div class="proof-match">
-            <span class="proof-team-name">${match.home}</span>
-            ${teamBadgeHtml(match.home, match.homeLogo, league.color)}
-            ${proof.score ? `<span class="proof-score">${proof.score.replace("-", " : ")}</span>` : ""}
-            ${teamBadgeHtml(match.away, match.awayLogo, league.color)}
-            <span class="proof-team-name">${match.away}</span>
-          </div>
-          <div class="proof-row highlight"><span>Type de pari</span><span>${match.type} : ${match.pick}</span></div>
-          <div class="proof-row"><span>Cote</span><span>${proof.cote.toFixed(2)}</span></div>
-          <div class="proof-row"><span>Mise</span><span>${proof.mise} F</span></div>
-          <div class="proof-row highlight"><span>Gains</span><span>${proof.gains.toFixed(1)} F</span></div>
-          <div class="proof-note">Ticket validé</div>
+    const league = leagueById(h.league);
+    const proofHtml = `
+      <div class="proof-ticket">
+        <div class="proof-match">
+          <span class="proof-team-name">${h.home}</span>
+          ${teamBadgeHtml(h.home, h.homeLogo, league.color)}
+          ${h.score ? `<span class="proof-score">${h.score.replace("-", " : ")}</span>` : ""}
+          ${teamBadgeHtml(h.away, h.awayLogo, league.color)}
+          <span class="proof-team-name">${h.away}</span>
         </div>
-      `
-      : "";
+        <div class="proof-row highlight"><span>Type de pari</span><span>${h.type} : ${h.pick}</span></div>
+        <div class="proof-row"><span>Cote</span><span>${h.cote.toFixed(2)}</span></div>
+        <div class="proof-row"><span>Mise</span><span>${h.mise} F</span></div>
+        <div class="proof-row highlight"><span>Gains</span><span>${h.gains.toFixed(1)} F</span></div>
+        <div class="proof-note">${h.result === "won" ? "Ticket validé" : h.result === "void" ? "Ticket remboursé" : "Ticket perdu"}</div>
+      </div>
+    `;
 
     return `
       <div class="history-row">
         <div class="history-info">
-          <div class="history-teams">${match.home} - ${match.away}</div>
-          <div class="history-pick">${match.type} : ${match.pick}</div>
+          <div class="history-teams">${h.home} - ${h.away}</div>
+          <div class="history-pick">${h.type} : ${h.pick}</div>
         </div>
         ${tag}
       </div>
@@ -350,7 +343,7 @@ function renderHistory() {
 
   container.innerHTML = rows;
   document.getElementById("history-summary").textContent =
-    `${won} gagnés · ${lost} perdus · ${void_} remboursés (sur ${MATCHES.length})`;
+    `${won} gagnés · ${lost} perdus · ${void_} remboursés (sur ${HISTORY.length})`;
 }
 
 // -------------------- Vue Premium --------------------

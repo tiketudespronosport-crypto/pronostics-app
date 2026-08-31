@@ -1,22 +1,106 @@
 // ============================================================
 // results.js — L'HISTORIQUE DE TES RÉSULTATS
 // ============================================================
-// Après un week-end, mets ici le résultat de chaque pronostic :
-// "won" (gagné), "lost" (perdu), ou "void" (remboursé/annulé).
-// PROOF contient les vraies données de ta mise (preuve que tu
-// joues toi-même tes pronostics) — cote, mise, gains.
+// HISTORY contient les matchs déjà joués et résolus, chacun avec
+// TOUTES ses infos (indépendant de ce qui est dans data.js).
+// Une fois qu'un pronostic de data.js est joué, ajoute une entrée
+// ici avec son résultat, puis tu peux le remplacer dans data.js
+// par le nouveau pronostic de la semaine suivante.
+// result : "won" (gagné), "lost" (perdu), ou "void" (remboursé)
 // ============================================================
 
-// Résultats du lundi 31 août 2026 — en attente (matchs pas encore joués)
-const CURRENT_RESULTS = {};
-
-// Preuve de mise réelle (remplie une fois les matchs terminés)
-const PROOF = {};
+const HISTORY = [
+  {
+    league: "liga",
+    home: "Deportivo La Coruna",
+    away: "Valencia",
+    date: "30 août",
+    time: "18:30",
+    type: "Buteur",
+    pick: "Aubameyang marque",
+    cote: 3.5,
+    mise: 90,
+    gains: 315.0,
+    score: "3-1",
+    result: "won",
+  },
+  {
+    league: "seriea",
+    home: "Napoli",
+    away: "Como",
+    date: "30 août",
+    time: "18:25",
+    type: "Double chance",
+    pick: "Nul ou Como (2X)",
+    cote: 1.56,
+    mise: 90,
+    gains: 140.4,
+    score: "1-2",
+    result: "won",
+  },
+  {
+    league: "pl",
+    home: "Chelsea",
+    away: "Brighton",
+    date: "30 août",
+    time: "15:00",
+    type: "Total équipe 2",
+    pick: "Brighton marque 1+ but (remb. si 1)",
+    cote: 1.76,
+    mise: 90,
+    gains: 158.4,
+    score: "4-3",
+    result: "won",
+  },
+  {
+    league: "pl",
+    home: "Leeds United",
+    away: "Brentford",
+    date: "30 août",
+    time: "15:00",
+    type: "Double chance",
+    pick: "Nul ou Leeds (1X)",
+    cote: 1.58,
+    mise: 90,
+    gains: 142.2,
+    score: "1-1",
+    result: "won",
+  },
+  {
+    league: "seriea",
+    home: "Lazio",
+    away: "Genoa",
+    date: "30 août",
+    time: "20:45",
+    type: "Total équipe 2",
+    pick: "Lazio marque 1+ but (remb. si 1)",
+    cote: 1.78,
+    mise: 90,
+    gains: 160.2,
+    score: "1-0",
+    result: "void",
+  },
+  {
+    league: "l1",
+    home: "AS Monaco",
+    away: "Olympique de Marseille",
+    date: "30 août",
+    time: "18:45",
+    type: "1X2",
+    pick: "Victoire Monaco (V1)",
+    cote: 2.277,
+    mise: 90,
+    gains: 204.93,
+    score: "2-0",
+    result: "won",
+  },
+];
 
 // Archive complète de la saison — TOI seul y as accès
 const SEASON_ARCHIVE = [
   { weekend: "22-23 août 2026", total: 8, won: 3, lost: 4, void: 1 },
   { weekend: "28 août 2026", total: 4, won: 4, lost: 0, void: 0 },
+  { weekend: "30 août 2026", total: 6, won: 5, lost: 0, void: 1 },
 ];
 
-if (typeof module !== "undefined") module.exports = { CURRENT_RESULTS, PROOF, SEASON_ARCHIVE };
+if (typeof module !== "undefined") module.exports = { HISTORY, SEASON_ARCHIVE };
