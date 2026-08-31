@@ -473,6 +473,51 @@ body {
   gap: 10px;
 }
 
+.history-group { display: flex; flex-direction: column; }
+
+.history-date-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.history-date-label {
+  font-family: "Oswald", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  flex: 1;
+}
+
+.history-date-summary {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.history-chevron {
+  font-size: 14px;
+  color: var(--muted);
+  transition: transform 0.2s ease;
+}
+
+.history-date-header.open .history-chevron { transform: rotate(180deg); }
+
+.history-date-body {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+.history-date-body.open { display: flex; }
+
 .history-row {
   background: var(--surface);
   border-radius: 14px;

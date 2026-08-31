@@ -293,6 +293,15 @@ document.getElementById("btn-back").addEventListener("click", () => {
 
 // -------------------- Vue Historique --------------------
 
+function groupHistoryByDate(history) {
+  const map = new Map();
+  history.forEach((h) => {
+    if (!map.has(h.date)) map.set(h.date, []);
+    map.get(h.date).push(h);
+  });
+  return Array.from(map.entries()).reverse(); // date la plus récente en premier
+}
+
 function renderHistory() {
   const container = document.getElementById("history-list");
 
@@ -303,47 +312,82 @@ function renderHistory() {
   }
 
   let won = 0, lost = 0, void_ = 0;
-
-  const rows = HISTORY.map((h) => {
+  HISTORY.forEach((h) => {
     if (h.result === "won") won++;
     else if (h.result === "lost") lost++;
     else if (h.result === "void") void_++;
+  });
 
-    const tag = `<span class="result-tag ${h.result}">${h.result === "won" ? "Gagné" : h.result === "lost" ? "Perdu" : "Remboursé"}</span>`;
+  const groups = groupHistoryByDate(HISTORY);
 
-    const league = leagueById(h.league);
-    const proofHtml = `
-      <div class="proof-ticket">
-        <div class="proof-match">
-          <span class="proof-team-name">${h.home}</span>
-          ${teamBadgeHtml(h.home, h.homeLogo, league.color)}
-          ${h.score ? `<span class="proof-score">${h.score.replace("-", " : ")}</span>` : ""}
-          ${teamBadgeHtml(h.away, h.awayLogo, league.color)}
-          <span class="proof-team-name">${h.away}</span>
+  const groupsHtml = groups
+    .map(([date, entries], idx) => {
+      let gWon = 0, gLost = 0, gVoid = 0;
+
+      const rowsHtml = entries
+        .map((h) => {
+          if (h.result === "won") gWon++;
+          else if (h.result === "lost") gLost++;
+          else if (h.result === "void") gVoid++;
+
+          const tag = `<span class="result-tag ${h.result}">${h.result === "won" ? "Gagné" : h.result === "lost" ? "Perdu" : "Remboursé"}</span>`;
+          const league = leagueById(h.league);
+          const proofHtml = `
+            <div class="proof-ticket">
+              <div class="proof-match">
+                <span class="proof-team-name">${h.home}</span>
+                ${teamBadgeHtml(h.home, h.homeLogo, league.color)}
+                ${h.score ? `<span class="proof-score">${h.score.replace("-", " : ")}</span>` : ""}
+                ${teamBadgeHtml(h.away, h.awayLogo, league.color)}
+                <span class="proof-team-name">${h.away}</span>
+              </div>
+              <div class="proof-row highlight"><span>Type de pari</span><span>${h.type} : ${h.pick}</span></div>
+              <div class="proof-row"><span>Cote</span><span>${h.cote.toFixed(2)}</span></div>
+              <div class="proof-row"><span>Mise</span><span>${h.mise} F</span></div>
+              <div class="proof-row highlight"><span>Gains</span><span>${h.gains.toFixed(1)} F</span></div>
+              <div class="proof-note">${h.result === "won" ? "Ticket validé" : h.result === "void" ? "Ticket remboursé" : "Ticket perdu"}</div>
+            </div>
+          `;
+
+          return `
+            <div class="history-row">
+              <div class="history-info">
+                <div class="history-teams">${h.home} - ${h.away}</div>
+                <div class="history-pick">${h.type} : ${h.pick}</div>
+              </div>
+              ${tag}
+            </div>
+            ${proofHtml}
+          `;
+        })
+        .join("");
+
+      const groupId = `hist-group-${idx}`;
+      return `
+        <div class="history-group">
+          <button class="history-date-header" data-group="${groupId}">
+            <span class="history-date-label">${date} 2026</span>
+            <span class="history-date-summary">${gWon}G · ${gLost}P · ${gVoid}R</span>
+            <span class="history-chevron">⌄</span>
+          </button>
+          <div class="history-date-body" id="${groupId}">${rowsHtml}</div>
         </div>
-        <div class="proof-row highlight"><span>Type de pari</span><span>${h.type} : ${h.pick}</span></div>
-        <div class="proof-row"><span>Cote</span><span>${h.cote.toFixed(2)}</span></div>
-        <div class="proof-row"><span>Mise</span><span>${h.mise} F</span></div>
-        <div class="proof-row highlight"><span>Gains</span><span>${h.gains.toFixed(1)} F</span></div>
-        <div class="proof-note">${h.result === "won" ? "Ticket validé" : h.result === "void" ? "Ticket remboursé" : "Ticket perdu"}</div>
-      </div>
-    `;
+      `;
+    })
+    .join("");
 
-    return `
-      <div class="history-row">
-        <div class="history-info">
-          <div class="history-teams">${h.home} - ${h.away}</div>
-          <div class="history-pick">${h.type} : ${h.pick}</div>
-        </div>
-        ${tag}
-      </div>
-      ${proofHtml}
-    `;
-  }).join("");
-
-  container.innerHTML = rows;
+  container.innerHTML = groupsHtml;
   document.getElementById("history-summary").textContent =
     `${won} gagnés · ${lost} perdus · ${void_} remboursés (sur ${HISTORY.length})`;
+
+  container.querySelectorAll(".history-date-header").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const body = document.getElementById(btn.dataset.group);
+      const isOpen = body.classList.contains("open");
+      body.classList.toggle("open", !isOpen);
+      btn.classList.toggle("open", !isOpen);
+    });
+  });
 }
 
 // -------------------- Vue Premium --------------------
