@@ -157,10 +157,29 @@ document.getElementById("toast-subscribe").addEventListener("click", () => {
 
 // -------------------- Vue Détail : carte plein écran d'un pronostic --------------------
 
+let currentTab = "analyse";
+
 function openDetail(matchId) {
   currentIndex = MATCHES.findIndex((m) => m.id === matchId);
+  currentTab = "analyse";
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset.tab === "analyse");
+  });
   renderDetailCard();
   showView("detail");
+}
+
+document.querySelectorAll(".tab-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    currentTab = btn.dataset.tab;
+    document.querySelectorAll(".tab-btn").forEach((b) => b.classList.toggle("active", b === btn));
+    renderDetailCard();
+  });
+});
+
+function couponNumber(matchId) {
+  const n = 86453000000 + matchId * 76543 + 21;
+  return String(n);
 }
 
 function renderDetailCard() {
@@ -168,6 +187,16 @@ function renderDetailCard() {
   const league = leagueById(match.league);
   const container = document.getElementById("match-card");
 
+  if (currentTab === "analyse") {
+    container.innerHTML = renderAnalyseTab(match, league);
+  } else if (currentTab === "pari") {
+    container.innerHTML = renderPariTab(match, league);
+  } else {
+    container.innerHTML = renderCouponTab(match, league);
+  }
+}
+
+function renderAnalyseTab(match, league) {
   const argsHtml = match.args
     .map(
       (a) => `
@@ -190,7 +219,7 @@ function renderDetailCard() {
     })
     .join("");
 
-  container.innerHTML = `
+  return `
     <div class="ticket-top">
       <span class="league-badge" style="background:${league.color}">${league.name}</span>
       <span class="match-time">🕐 ${match.day} ${match.date} · ${match.time}</span>
@@ -205,6 +234,56 @@ function renderDetailCard() {
       <div class="stars">${starsHtml}</div>
     </div>
     <div class="args-row">${argsHtml}</div>
+  `;
+}
+
+function renderPariTab(match, league) {
+  return `
+    <div class="ticket-top">
+      <span class="league-badge" style="background:${league.color}">${league.name}</span>
+      <span class="match-time">🕐 ${match.day} ${match.date} · ${match.time}</span>
+    </div>
+    <div class="pari-match">
+      ${teamBadgeHtml(match.home, match.homeLogo, league.color)}
+      <span class="pari-team">${match.home}</span>
+      <span class="pari-vs">à venir</span>
+      <span class="pari-team">${match.away}</span>
+      ${teamBadgeHtml(match.away, match.awayLogo, league.color)}
+    </div>
+    <div class="pari-detail">
+      <div class="proof-row highlight"><span>Type de pari</span><span>${match.type}</span></div>
+      <div class="proof-row highlight"><span>Sélection</span><span>${match.pick}</span></div>
+      <div class="proof-row"><span>Cote</span><span>${match.cote}</span></div>
+    </div>
+  `;
+}
+
+function renderCouponTab(match, league) {
+  const mise = 90;
+  const gains = (match.cote * mise).toFixed(1);
+
+  return `
+    <div class="coupon-head">
+      <span class="coupon-date">${match.date}.2026 (${match.time})</span>
+      <span class="coupon-id">N° ${couponNumber(match.id)}</span>
+    </div>
+    <div class="coupon-rows">
+      <div class="proof-row"><span>Cote</span><span>${match.cote}</span></div>
+      <div class="proof-row"><span>Mise</span><span>${mise} F</span></div>
+      <div class="proof-row highlight"><span>Gains potentiels</span><span>${gains} F</span></div>
+      <div class="proof-row"><span>Statut</span><span class="status-accepted">✓ Accepté</span></div>
+    </div>
+    <div class="coupon-match-block">
+      <span class="league-badge" style="background:${league.color}">${league.name}</span>
+      <div class="pari-match">
+        ${teamBadgeHtml(match.home, match.homeLogo, league.color)}
+        <span class="pari-team">${match.home}</span>
+        <span class="pari-vs">vs</span>
+        <span class="pari-team">${match.away}</span>
+        ${teamBadgeHtml(match.away, match.awayLogo, league.color)}
+      </div>
+      <div class="coupon-pick">${match.type} : ${match.pick}</div>
+    </div>
   `;
 }
 
