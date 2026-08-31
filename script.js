@@ -220,19 +220,18 @@ function renderAnalyseTab(match, league) {
     .join("");
 
   return `
-    <div class="ticket-top">
-      <span class="league-badge" style="background:${league.color}">${league.name}</span>
-      <span class="match-time">🕐 ${match.day} ${match.date} · ${match.time}</span>
+    <div class="analyse-header">
+      <span class="league-pill" style="background:${league.color}">${league.name}</span>
+      <span class="match-time-sub">🕐 ${match.day} ${match.date} · ${match.time}</span>
     </div>
-    <div class="teams">
-      <span class="team-name">${match.home}</span>
-      <span class="vs">vs</span>
-      <span class="team-name">${match.away}</span>
+    <div class="pari-match">
+      ${teamBadgeHtml(match.home, match.homeLogo, league.color)}
+      <span class="pari-team">${match.home}</span>
+      <span class="pari-vs">vs</span>
+      <span class="pari-team">${match.away}</span>
+      ${teamBadgeHtml(match.away, match.awayLogo, league.color)}
     </div>
-    <div class="pick-zone">
-      <div class="pick-banner">${match.type} : ${match.pick} @ ${match.cote}</div>
-      <div class="stars">${starsHtml}</div>
-    </div>
+    <div class="stars standalone">${starsHtml}</div>
     <div class="args-row">${argsHtml}</div>
   `;
 }
