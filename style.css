@@ -644,12 +644,27 @@ body {
 .proof-row.highlight span:last-child { color: var(--blue); font-weight: 700; }
 
 .proof-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   text-align: center;
   font-size: 10px;
   font-weight: 600;
-  color: var(--text);
   margin-top: 6px;
   font-family: "Oswald", sans-serif;
+}
+
+.proof-status-icon {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1.5px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  line-height: 1;
 }
 
 /* ---------- Premium ---------- */

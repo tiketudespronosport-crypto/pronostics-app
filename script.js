@@ -329,7 +329,9 @@ function renderHistory() {
           else if (h.result === "lost") gLost++;
           else if (h.result === "void") gVoid++;
 
-          const tag = `<span class="result-tag ${h.result}">${h.result === "won" ? "Gagné" : h.result === "lost" ? "Perdu" : "Remboursé"}</span>`;
+          const statusColor = h.result === "won" ? "var(--win)" : h.result === "lost" ? "var(--lose)" : "var(--void)";
+          const statusIcon = h.result === "won" ? "✅" : h.result === "lost" ? "✕" : "↩";
+          const statusText = h.result === "won" ? "Ticket validé" : h.result === "void" ? "Ticket remboursé" : "Ticket perdu";
           const league = leagueById(h.league);
           const proofHtml = `
             <div class="proof-ticket">
@@ -344,20 +346,14 @@ function renderHistory() {
               <div class="proof-row"><span>Cote</span><span>${h.cote.toFixed(2)}</span></div>
               <div class="proof-row"><span>Mise</span><span>${h.mise} F</span></div>
               <div class="proof-row highlight"><span>Gains</span><span>${h.gains.toFixed(1)} F</span></div>
-              <div class="proof-note">${h.result === "won" ? "Ticket validé" : h.result === "void" ? "Ticket remboursé" : "Ticket perdu"}</div>
+              <div class="proof-note" style="color:${statusColor}">
+                <span class="proof-status-icon" style="border-color:${statusColor}">${statusIcon}</span>
+                ${statusText}
+              </div>
             </div>
           `;
 
-          return `
-            <div class="history-row">
-              <div class="history-info">
-                <div class="history-teams">${h.home} - ${h.away}</div>
-                <div class="history-pick">${h.type} : ${h.pick}</div>
-              </div>
-              ${tag}
-            </div>
-            ${proofHtml}
-          `;
+          return proofHtml;
         })
         .join("");
 
