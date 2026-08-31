@@ -480,11 +480,16 @@ body {
 .proof-note {
   text-align: center;
   font-size: 10px;
-  font-weight: 600;
-  color: var(--text);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   margin-top: 6px;
   font-family: "Oswald", sans-serif;
 }
+
+.proof-note.won { color: var(--win); }
+.proof-note.lost { color: var(--lose); }
+.proof-note.void { color: var(--void); }
 
 /* ---------- Premium ---------- */
 .premium-banner {

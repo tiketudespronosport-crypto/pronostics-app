@@ -234,7 +234,7 @@ function renderMatchProofCard(match, result, proof) {
         <div class="proof-row"><span>Cote</span><span>${proof.cote.toFixed(2)}</span></div>
         ${proof.mise != null ? `<div class="proof-row"><span>Mise</span><span>${proof.mise} F</span></div>` : ""}
         ${proof.gains != null ? `<div class="proof-row highlight"><span>Gains</span><span>${proof.gains.toFixed(1)} F</span></div>` : ""}
-        <div class="proof-note">Ticket validé</div>
+        <div class="proof-note ${result}">${result === "won" ? "Ticket validé" : result === "lost" ? "Ticket perdu" : "Ticket remboursé"}</div>
       </div>
     `
     : "";
