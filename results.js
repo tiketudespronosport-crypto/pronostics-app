@@ -1,27 +1,22 @@
 // ============================================================
 // results.js — L'HISTORIQUE DE TES RÉSULTATS
 // ============================================================
-// Après un week-end, mets ici le résultat de chaque pronostic :
+// Après un jour de match, mets ici le résultat de chaque pronostic :
 // "won" (gagné), "lost" (perdu), ou "void" (remboursé/annulé).
 // PROOF contient les vraies données de ta mise (preuve que tu
-// joues toi-même tes pronostics) — cote, mise, gains.
+// joues toi-même tes pronostics) — cote, mise, gains, score final.
 // ============================================================
 
-// Résultats du vendredi 28 août 2026 — 4/4 GAGNÉS
+// Résultats du dimanche 30 août 2026 (à remplir après les matchs)
 const CURRENT_RESULTS = {
-  1: "won",  // Santander-Elche — BTTS Oui (3-2)
-  2: "won",  // Milan-Venezia — Handicap 1 (-1) (2-0)
-  3: "won",  // Crystal Palace-Man City — Haaland buteur (1-4)
-  4: "won",  // Lille-PSG — 2X + Total Équipe 2 Under 2.5 (2-2)
+  // 1: "won",
+  // 2: "lost",
+  // 3: "void",
 };
 
-// Preuve de mise réelle pour chaque pronostic (facultatif — si absent,
-// pas de reçu affiché pour ce match)
+// Preuve de mise réelle pour chaque pronostic (facultatif)
 const PROOF = {
-  1: { cote: 1.54, mise: 90, gains: 138.6, score: "3-2" },
-  2: { cote: 1.76, mise: 90, gains: 158.4, score: "2-0" },
-  3: { cote: 1.71, mise: 90, gains: 153.9, score: "1-4" },
-  4: { cote: 1.8,  mise: 90, gains: 162,   score: "2-2" },
+  // 1: { cote: 3.5, mise: 90, gains: 315, score: "" },
 };
 
 // Archive complète de la saison — TOI seul y as accès
