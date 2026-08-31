@@ -214,108 +214,64 @@ document.getElementById("btn-back").addEventListener("click", () => {
 
 // -------------------- Vue Historique --------------------
 
-function renderMatchProofCard(match, result, proof) {
-  const tag = result
-    ? `<span class="result-tag ${result}">${result === "won" ? "Gagné" : result === "lost" ? "Perdu" : "Remboursé"}</span>`
-    : `<span class="result-tag pending">En cours</span>`;
-
-  const league = leagueById(match.league);
-  const proofHtml = proof
-    ? `
-      <div class="proof-ticket">
-        <div class="proof-match">
-          <span class="proof-team-name">${match.home}</span>
-          ${teamBadgeHtml(match.home, match.homeLogo, league.color)}
-          ${proof.score ? `<span class="proof-score">${proof.score.replace("-", " : ")}</span>` : ""}
-          ${teamBadgeHtml(match.away, match.awayLogo, league.color)}
-          <span class="proof-team-name">${match.away}</span>
-        </div>
-        <div class="proof-row highlight"><span>Type de pari</span><span>${match.type} : ${match.pick}</span></div>
-        <div class="proof-row"><span>Cote</span><span>${proof.cote.toFixed(2)}</span></div>
-        ${proof.mise != null ? `<div class="proof-row"><span>Mise</span><span>${proof.mise} F</span></div>` : ""}
-        ${proof.gains != null ? `<div class="proof-row highlight"><span>Gains</span><span>${proof.gains.toFixed(1)} F</span></div>` : ""}
-        <div class="proof-note ${result}">${result === "won" ? "Ticket validé" : result === "lost" ? "Ticket perdu" : "Ticket remboursé"}</div>
-      </div>
-    `
-    : "";
-
-  return `
-    <div class="history-row">
-      <div class="history-info">
-        <div class="history-teams">${match.home} - ${match.away}</div>
-        <div class="history-pick">${match.type} : ${match.pick}</div>
-      </div>
-      ${tag}
-    </div>
-    ${proofHtml}
-  `;
-}
-
-// -------------------- Vue Historique --------------------
-
 function renderHistory() {
   const container = document.getElementById("history-list");
   const entries = Object.keys(CURRENT_RESULTS);
 
-  let html = "";
-
-  // --- Jour de match en cours ---
   if (entries.length === 0) {
-    html += `<div class="history-day-header">Aujourd'hui</div>`;
-    html += `<div class="empty-state">Les résultats de ce jour de match seront affichés ici une fois les matchs terminés.</div>`;
-  } else {
-    let won = 0, lost = 0, void_ = 0;
-    const rows = MATCHES.map((match) => {
-      const result = CURRENT_RESULTS[match.id];
-      if (result === "won") won++;
-      else if (result === "lost") lost++;
-      else if (result === "void") void_++;
-      const proof = typeof PROOF !== "undefined" ? PROOF[match.id] : null;
-      return renderMatchProofCard(match, result, proof);
-    }).join("");
-
-    html += `<div class="history-day-header">Aujourd'hui</div>`;
-    html += `<div class="history-day-summary">${won} gagnés · ${lost} perdus · ${void_} remboursés (sur ${MATCHES.length})</div>`;
-    html += rows;
+    container.innerHTML = `<div class="empty-state">Les résultats de ce week-end seront affichés ici une fois les matchs terminés.</div>`;
+    document.getElementById("history-summary").textContent = "";
+    return;
   }
 
-  // --- Archive des jours précédents (sections dépliables) ---
-  if (typeof ARCHIVE !== "undefined") {
-    ARCHIVE.forEach((day, index) => {
-      let won = 0, lost = 0, void_ = 0;
-      day.matches.forEach((m) => {
-        if (m.result === "won") won++;
-        else if (m.result === "lost") lost++;
-        else if (m.result === "void") void_++;
-      });
+  let won = 0, lost = 0, void_ = 0;
 
-      const cardsHtml = day.matches
-        .map((m) => renderMatchProofCard(m, m.result, m.proof))
-        .join("");
+  const rows = MATCHES.map((match) => {
+    const result = CURRENT_RESULTS[match.id];
+    if (result === "won") won++;
+    else if (result === "lost") lost++;
+    else if (result === "void") void_++;
 
-      html += `
-        <button class="archive-toggle" data-archive-index="${index}">
-          <span>${day.label}</span>
-          <span class="archive-summary">${won}✅ ${lost}❌ ${void_}↩️ <span class="archive-chevron">▾</span></span>
-        </button>
-        <div class="archive-body" id="archive-body-${index}" style="display:none;">
-          ${cardsHtml}
+    const tag = result
+      ? `<span class="result-tag ${result}">${result === "won" ? "Gagné" : result === "lost" ? "Perdu" : "Remboursé"}</span>`
+      : `<span class="result-tag pending">En cours</span>`;
+
+    const proof = typeof PROOF !== "undefined" ? PROOF[match.id] : null;
+    const league = leagueById(match.league);
+    const proofHtml = proof
+      ? `
+        <div class="proof-ticket">
+          <div class="proof-match">
+            <span class="proof-team-name">${match.home}</span>
+            ${teamBadgeHtml(match.home, match.homeLogo, league.color)}
+            ${proof.score ? `<span class="proof-score">${proof.score.replace("-", " : ")}</span>` : ""}
+            ${teamBadgeHtml(match.away, match.awayLogo, league.color)}
+            <span class="proof-team-name">${match.away}</span>
+          </div>
+          <div class="proof-row highlight"><span>Type de pari</span><span>${match.type} : ${match.pick}</span></div>
+          <div class="proof-row"><span>Cote</span><span>${proof.cote.toFixed(2)}</span></div>
+          <div class="proof-row"><span>Mise</span><span>${proof.mise} F</span></div>
+          <div class="proof-row highlight"><span>Gains</span><span>${proof.gains.toFixed(1)} F</span></div>
+          <div class="proof-note">Ticket validé</div>
         </div>
-      `;
-    });
-  }
+      `
+      : "";
 
-  container.innerHTML = html;
-  document.getElementById("history-summary").textContent = "Historique complet, jour après jour";
+    return `
+      <div class="history-row">
+        <div class="history-info">
+          <div class="history-teams">${match.home} - ${match.away}</div>
+          <div class="history-pick">${match.type} : ${match.pick}</div>
+        </div>
+        ${tag}
+      </div>
+      ${proofHtml}
+    `;
+  }).join("");
 
-  container.querySelectorAll(".archive-toggle").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const body = document.getElementById(`archive-body-${btn.dataset.archiveIndex}`);
-      const isOpen = body.style.display !== "none";
-      body.style.display = isOpen ? "none" : "block";
-      btn.classList.toggle("open", !isOpen);
-    });
-  });
+  container.innerHTML = rows;
+  document.getElementById("history-summary").textContent =
+    `${won} gagnés · ${lost} perdus · ${void_} remboursés (sur ${MATCHES.length})`;
 }
 
 // -------------------- Vue Premium --------------------
