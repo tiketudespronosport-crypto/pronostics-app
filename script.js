@@ -182,6 +182,15 @@ function couponNumber(matchId) {
   return String(n);
 }
 
+function pseudoCouponNumber(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash * 31 + str.charCodeAt(i)) >>> 0;
+  }
+  const n = 86450000000 + (hash % 900000);
+  return String(n);
+}
+
 function renderDetailCard() {
   const match = MATCHES[currentIndex];
   const league = leagueById(match.league);
@@ -330,25 +339,32 @@ function renderHistory() {
           else if (h.result === "void") gVoid++;
 
           const statusColor = h.result === "won" ? "var(--win)" : h.result === "lost" ? "var(--lose)" : "var(--void)";
-          const statusIcon = h.result === "won" ? "✅" : h.result === "lost" ? "✕" : "↩";
-          const statusText = h.result === "won" ? "Ticket validé" : h.result === "void" ? "Ticket remboursé" : "Ticket perdu";
+          const statusIcon = h.result === "won" ? "✓" : h.result === "lost" ? "✕" : "↩";
+          const statusLabel = h.result === "won" ? "Gagné" : h.result === "void" ? "Remboursé" : "Perdu";
           const league = leagueById(h.league);
+          const couponNb = pseudoCouponNumber(h.home + h.away + h.date);
           const proofHtml = `
-            <div class="proof-ticket">
-              <div class="proof-match">
-                <span class="proof-team-name">${h.home}</span>
-                ${teamBadgeHtml(h.home, h.homeLogo, league.color)}
-                ${h.score ? `<span class="proof-score">${h.score.replace("-", " : ")}</span>` : ""}
-                ${teamBadgeHtml(h.away, h.awayLogo, league.color)}
-                <span class="proof-team-name">${h.away}</span>
+            <div class="proof-ticket coupon-style">
+              <div class="coupon-head">
+                <span class="coupon-date">${h.date}.2026 (${h.time})</span>
+                <span class="coupon-id">N° ${couponNb}</span>
               </div>
-              <div class="proof-row highlight"><span>Type de pari</span><span>${h.type} : ${h.pick}</span></div>
-              <div class="proof-row"><span>Cote</span><span>${h.cote.toFixed(2)}</span></div>
-              <div class="proof-row"><span>Mise</span><span>${h.mise} F</span></div>
-              <div class="proof-row highlight"><span>Gains</span><span>${h.gains.toFixed(1)} F</span></div>
-              <div class="proof-note" style="color:${statusColor}">
-                <span class="proof-status-icon" style="border-color:${statusColor}">${statusIcon}</span>
-                ${statusText}
+              <div class="coupon-rows">
+                <div class="proof-row"><span>Cote</span><span>${h.cote.toFixed(2)}</span></div>
+                <div class="proof-row"><span>Mise</span><span>${h.mise} F</span></div>
+                <div class="proof-row highlight"><span>Gains</span><span>${h.gains.toFixed(1)} F</span></div>
+                <div class="proof-row"><span>Statut</span><span style="color:${statusColor}; font-weight:700;">${statusIcon} ${statusLabel}</span></div>
+              </div>
+              <div class="coupon-match-block">
+                <span class="league-pill" style="background:${league.color}">${league.name}</span>
+                <div class="pari-match">
+                  ${teamBadgeHtml(h.home, h.homeLogo, league.color)}
+                  <span class="pari-team">${h.home}</span>
+                  ${h.score ? `<span class="proof-score">${h.score.replace("-", " : ")}</span>` : `<span class="pari-vs">vs</span>`}
+                  <span class="pari-team">${h.away}</span>
+                  ${teamBadgeHtml(h.away, h.awayLogo, league.color)}
+                </div>
+                <div class="coupon-pick">${h.type} : ${h.pick}</div>
               </div>
             </div>
           `;

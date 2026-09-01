@@ -589,6 +589,15 @@ body {
   font-family: "Oswald", sans-serif;
 }
 
+.proof-ticket.coupon-style {
+  background: var(--bg);
+  border: 2px solid var(--blue);
+  border-radius: 20px;
+  padding: 0;
+  margin: 0 0 4px;
+  overflow: hidden;
+}
+
 .proof-match {
   display: flex;
   justify-content: center;
