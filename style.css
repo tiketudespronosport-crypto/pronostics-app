@@ -491,7 +491,7 @@ body {
 
 /* ---------- Historique ---------- */
 .history-list {
-  padding: 0 8px;
+  padding: 0 20px;
   max-width: 460px;
   margin: 0 auto;
   width: 100%;
@@ -597,22 +597,6 @@ body {
   margin: 0 0 4px;
   overflow: hidden;
 }
-
-/* Version agrandie pensée pour les captures d'écran / posts réseaux sociaux */
-.coupon-style .coupon-head { padding: 22px 24px 14px; }
-.coupon-style .coupon-date { font-size: 15px; }
-.coupon-style .coupon-id { font-size: 13px; }
-
-.coupon-style .coupon-rows { padding: 16px 24px; gap: 10px; }
-.coupon-style .proof-row { font-size: 15px; padding: 3px 0; }
-
-.coupon-style .coupon-match-block { padding: 20px 24px 28px; }
-.coupon-style .league-pill { font-size: 14px; padding: 8px 20px; }
-.coupon-style .pari-match { gap: 14px; padding: 24px 8px 10px; }
-.coupon-style .pari-team { font-size: 20px; }
-.coupon-style .proof-score { font-size: 26px; }
-.coupon-style .team-badge { width: 44px; height: 44px; }
-.coupon-style .coupon-pick { font-size: 18px; margin-top: 12px; }
 
 .proof-match {
   display: flex;
