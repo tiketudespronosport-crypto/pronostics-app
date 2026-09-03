@@ -363,6 +363,13 @@ body {
   color: var(--text);
 }
 
+.team-pair {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
 .pari-vs {
   font-size: 11px;
   color: var(--muted);
