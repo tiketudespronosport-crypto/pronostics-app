@@ -234,11 +234,11 @@ function renderAnalyseTab(match, league) {
       <span class="match-time-sub">🕐 ${match.day} ${match.date} · ${match.time}</span>
     </div>
     <div class="pari-match">
-      <span class="pari-team">${match.home}</span>
-      ${teamBadgeHtml(match.home, match.homeLogo, league.color)}
+      <span class="team-pair"><span class="pari-team">${match.home}</span>
+      ${teamBadgeHtml(match.home, match.homeLogo, league.color)}</span>
       <span class="pari-vs">vs</span>
-      ${teamBadgeHtml(match.away, match.awayLogo, league.color)}
-      <span class="pari-team">${match.away}</span>
+      <span class="team-pair">${teamBadgeHtml(match.away, match.awayLogo, league.color)}
+      <span class="pari-team">${match.away}</span></span>
     </div>
     <div class="stars standalone">${starsHtml}</div>
     <div class="args-row">${argsHtml}</div>
@@ -252,11 +252,11 @@ function renderPariTab(match, league) {
       <span class="match-time">🕐 ${match.day} ${match.date} · ${match.time}</span>
     </div>
     <div class="pari-match">
-      <span class="pari-team">${match.home}</span>
-      ${teamBadgeHtml(match.home, match.homeLogo, league.color)}
+      <span class="team-pair"><span class="pari-team">${match.home}</span>
+      ${teamBadgeHtml(match.home, match.homeLogo, league.color)}</span>
       <span class="pari-vs">à venir</span>
-      ${teamBadgeHtml(match.away, match.awayLogo, league.color)}
-      <span class="pari-team">${match.away}</span>
+      <span class="team-pair">${teamBadgeHtml(match.away, match.awayLogo, league.color)}
+      <span class="pari-team">${match.away}</span></span>
     </div>
     <div class="pari-detail">
       <div class="proof-row highlight"><span>Type de pari</span><span>${match.type}</span></div>
@@ -284,11 +284,11 @@ function renderCouponTab(match, league) {
     <div class="coupon-match-block">
       <span class="league-badge" style="background:${league.color}">${league.name}</span>
       <div class="pari-match">
-        <span class="pari-team">${match.home}</span>
-        ${teamBadgeHtml(match.home, match.homeLogo, league.color)}
+        <span class="team-pair"><span class="pari-team">${match.home}</span>
+        ${teamBadgeHtml(match.home, match.homeLogo, league.color)}</span>
         <span class="pari-vs">vs</span>
-        ${teamBadgeHtml(match.away, match.awayLogo, league.color)}
-        <span class="pari-team">${match.away}</span>
+        <span class="team-pair">${teamBadgeHtml(match.away, match.awayLogo, league.color)}
+        <span class="pari-team">${match.away}</span></span>
       </div>
       <div class="coupon-pick">${match.type} : ${match.pick}</div>
     </div>
@@ -358,11 +358,11 @@ function renderHistory() {
               <div class="coupon-match-block">
                 <span class="league-pill" style="background:${league.color}">${league.name}</span>
                 <div class="pari-match">
-                  <span class="pari-team">${h.home}</span>
-                  ${teamBadgeHtml(h.home, h.homeLogo, league.color)}
+                  <span class="team-pair"><span class="pari-team">${h.home}</span>
+                  ${teamBadgeHtml(h.home, h.homeLogo, league.color)}</span>
                   ${h.score ? `<span class="proof-score">${h.score.replace("-", " : ")}</span>` : `<span class="pari-vs">vs</span>`}
-                  ${teamBadgeHtml(h.away, h.awayLogo, league.color)}
-                  <span class="pari-team">${h.away}</span>
+                  <span class="team-pair">${teamBadgeHtml(h.away, h.awayLogo, league.color)}
+                  <span class="pari-team">${h.away}</span></span>
                 </div>
                 <div class="coupon-pick">${h.type} : ${h.pick}</div>
               </div>
